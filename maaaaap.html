@@ -1,0 +1,103 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<base target="_top">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Quick Start - Leaflet</title>
+	
+	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" /> integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+	<style>
+		html, body {
+			height: 100%;
+			margin: 0;
+		}
+		.leaflet-container {
+			height: 600px;
+			width: 400px;
+			max-width: 100%;
+			max-height: 100%;
+		}
+	</style>
+
+	
+</head>
+<body>
+
+
+
+<div id="map" style="width: 1200px; height: 800px;"></div>
+<script>
+
+	const map = L.map('map').setView([33.97911088921657, -6.863042316861342], 13);
+
+	const tiles = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+		maxZoom: 19,
+		attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+	}).addTo(map);
+
+	const marker = L.marker([33.97911088921657, -6.863042316861342]).addTo(map)
+		.bindPopup('<b>Hello world!</b><br />I am a popup.').openPopup();
+
+	const circle = L.circle([33.97911088921657, -6.863042316861342], {
+		color: 'red',
+		fillColor: '#f03',
+		fillOpacity: 0.5,
+		radius: 500
+	}).addTo(map).bindPopup('I am a circle.');
+
+        const imagePath = "Capture d'écran 2025-10-20 121055.png"; 
+
+    const imageHtmlContent = '<img src="' + imagePath + '" alt="Terrain Foot" style="width:150px; height:auto;">' + 
+                         '<h2>Terrain Foot</h2>' + 
+                         '<p>Pour Jouer.</p>';
+
+	const polygon2 = L.polygon([
+		[33.97824658415768, -6.8625309759189035],
+		[33.977892228691964, -6.862475522229373],
+		[33.97780296334175, -6.863134442540252],
+        [33.978176812907606, -6.8631933592378775]
+	]).addTo(map).bindPopup(imageHtmlContent);
+
+
+
+    const polygon = L.polygon([
+		[33.97753357424626, -6.862838063988583],
+		[33.977578900437535, -6.862327914932039],
+		[33.9771483006448, -6.862273256104553],
+        [33.97710297422394, -6.862765185551933]
+	]).addTo(map).bindPopup('I am a polygon.');
+
+    const line = L.polyline([
+    [33.977939233705264, -6.861152058812498],
+    [33.97666718378891, -6.862381614044958],
+    [33.9750481511003, -6.864259193503241],
+    [33.97607556886984, -6.865962726959914]
+    ]).addTo(map).bindPopup('I am a polyline.');
+	const popup = L.popup()
+		.setLatLng([33.97911088921657, -6.863042316861342])
+		.setContent('I am a standalone popup.')
+		.openOn(map);
+
+	function onMapClick(e) {
+		popup
+			.setLatLng(e.latlng)
+			.setContent(`You clicked the map at ${e.latlng.toString()}`)
+			.openOn(map);
+	}
+
+	map.on('click', onMapClick);
+
+</script>
+
+
+
+</body>
+</html>
